@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.IQuserDao" >
+  <resultMap id="BaseResultMap" type="com.entity.Quser" >
+    <id column="qid" property="qid" jdbcType="INTEGER" />
+    <id column="rid" property="rid" jdbcType="INTEGER" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="postal" property="postal" jdbcType="VARCHAR" />
+    <result column="qname" property="qname" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+
+    <association property="recei" column="rid" javaType="com.entity.Receiving">
+      <id column="rid" property="rid" jdbcType="BIGINT" />
+      <result column="raddress" property="raddress" jdbcType="VARCHAR" />
+    </association>
+
+  </resultMap>
+  <sql id="Base_Column_List" >
+    qid, rid, phone, postal, qname, sex
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from quser
+    where qid = #{qid,jdbcType=INTEGER}
+      and rid = #{rid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByrid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+   SELECT q.*,r.raddress FROM quser q
+  INNER JOIN receiving r ON q.rid = r.rid
+  WHERE q.rid=#{rid,jdbcType=INTEGER}
+  </select>
+
+
+  <select id="selectByRid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from quser where   rid = #{rid,jdbcType=INTEGER} ;
+  </select>
+
+
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from quser
+    where qid = #{qid,jdbcType=INTEGER}
+      and rid = #{rid,jdbcType=INTEGER}
+  </delete>
+
+
+
+  <delete id="deleteByrid" parameterType="java.lang.Integer" >
+    delete from quser
+    where rid = #{rid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Quser" >
+    insert into quser (qid, rid, phone, 
+      postal, qname, sex)
+    values (DEFAULT , #{rid,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR},
+      #{postal,jdbcType=VARCHAR}, #{qname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Quser" >
+    insert into quser
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="qid != null" >
+        qid,
+      </if>
+      <if test="rid != null" >
+        rid,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="postal != null" >
+        postal,
+      </if>
+      <if test="qname != null" >
+        qname,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="qid != null" >
+        #{qid,jdbcType=INTEGER},
+      </if>
+      <if test="rid != null" >
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="postal != null" >
+        #{postal,jdbcType=VARCHAR},
+      </if>
+      <if test="qname != null" >
+        #{qname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Quser" >
+    update quser
+    <set >
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="postal != null" >
+        postal = #{postal,jdbcType=VARCHAR},
+      </if>
+      <if test="qname != null" >
+        qname = #{qname,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where qid = #{qid,jdbcType=INTEGER}
+      and rid = #{rid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Quser" >
+    update quser
+    set phone = #{phone,jdbcType=VARCHAR},
+      postal = #{postal,jdbcType=VARCHAR},
+      qname = #{qname,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR}
+    where qid = #{qid,jdbcType=INTEGER}
+      and rid = #{rid,jdbcType=INTEGER}
+  </update>
+</mapper>

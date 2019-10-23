@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.OrderdetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Orderdetails" >
+    <id column="orid" property="orid" jdbcType="INTEGER" />
+    <result column="oid" property="oid" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="onumber" property="onumber" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    orid, oid, pid, onumber
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from orderdetails
+    where orid = #{orid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from orderdetails
+    where orid = #{orid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Orderdetails" >
+    insert into orderdetails (orid, oid, pid, 
+      onumber)
+    values (#{orid,jdbcType=INTEGER}, #{oid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, 
+      #{onumber,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Orderdetails" >
+    insert into orderdetails
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orid != null" >
+        orid,
+      </if>
+      <if test="oid != null" >
+        oid,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="onumber != null" >
+        onumber,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orid != null" >
+        #{orid,jdbcType=INTEGER},
+      </if>
+      <if test="oid != null" >
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="onumber != null" >
+        #{onumber,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Orderdetails" >
+    update orderdetails
+    <set >
+      <if test="oid != null" >
+        oid = #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="onumber != null" >
+        onumber = #{onumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    where orid = #{orid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Orderdetails" >
+    update orderdetails
+    set oid = #{oid,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=INTEGER},
+      onumber = #{onumber,jdbcType=INTEGER}
+    where orid = #{orid,jdbcType=INTEGER}
+  </update>
+</mapper>

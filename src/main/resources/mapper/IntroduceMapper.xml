@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="mapper.IntroduceMapper" >
+  <resultMap id="BaseResultMap" type="com.entity.Introduce" >
+    <id column="iid" property="iid" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="introduces1" property="introduces1" jdbcType="VARCHAR" />
+    <result column="introduces2" property="introduces2" jdbcType="VARCHAR" />
+    <result column="introduces3" property="introduces3" jdbcType="VARCHAR" />
+    <result column="introduces4" property="introduces4" jdbcType="VARCHAR" />
+    <result column="introduces5" property="introduces5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    iid, pid, introduces1, introduces2, introduces3, introduces4, introduces5
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from introduce
+    where iid = #{iid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from introduce
+    where iid = #{iid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Introduce" >
+    insert into introduce (iid, pid, introduces1, 
+      introduces2, introduces3, introduces4, 
+      introduces5)
+    values (#{iid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, #{introduces1,jdbcType=VARCHAR}, 
+      #{introduces2,jdbcType=VARCHAR}, #{introduces3,jdbcType=VARCHAR}, #{introduces4,jdbcType=VARCHAR}, 
+      #{introduces5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Introduce" >
+    insert into introduce
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="iid != null" >
+        iid,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="introduces1 != null" >
+        introduces1,
+      </if>
+      <if test="introduces2 != null" >
+        introduces2,
+      </if>
+      <if test="introduces3 != null" >
+        introduces3,
+      </if>
+      <if test="introduces4 != null" >
+        introduces4,
+      </if>
+      <if test="introduces5 != null" >
+        introduces5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="iid != null" >
+        #{iid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="introduces1 != null" >
+        #{introduces1,jdbcType=VARCHAR},
+      </if>
+      <if test="introduces2 != null" >
+        #{introduces2,jdbcType=VARCHAR},
+      </if>
+      <if test="introduces3 != null" >
+        #{introduces3,jdbcType=VARCHAR},
+      </if>
+      <if test="introduces4 != null" >
+        #{introduces4,jdbcType=VARCHAR},
+      </if>
+      <if test="introduces5 != null" >
+        #{introduces5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Introduce" >
+    update introduce
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="introduces1 != null" >
+        introduces1 = #{introduces1,jdbcType=VARCHAR},
+      </if>
+      <if test="introduces2 != null" >
+        introduces2 = #{introduces2,jdbcType=VARCHAR},
+      </if>
+      <if test="introduces3 != null" >
+        introduces3 = #{introduces3,jdbcType=VARCHAR},
+      </if>
+      <if test="introduces4 != null" >
+        introduces4 = #{introduces4,jdbcType=VARCHAR},
+      </if>
+      <if test="introduces5 != null" >
+        introduces5 = #{introduces5,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where iid = #{iid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Introduce" >
+    update introduce
+    set pid = #{pid,jdbcType=INTEGER},
+      introduces1 = #{introduces1,jdbcType=VARCHAR},
+      introduces2 = #{introduces2,jdbcType=VARCHAR},
+      introduces3 = #{introduces3,jdbcType=VARCHAR},
+      introduces4 = #{introduces4,jdbcType=VARCHAR},
+      introduces5 = #{introduces5,jdbcType=VARCHAR}
+    where iid = #{iid,jdbcType=INTEGER}
+  </update>
+</mapper>

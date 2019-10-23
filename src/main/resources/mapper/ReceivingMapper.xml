@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.IReceivingDao" >
+  <resultMap id="BaseResultMap" type="com.entity.Receiving" >
+    <id column="rid" property="rid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="raddress" property="raddress" jdbcType="VARCHAR" />
+    <result column="adressStatus" property="adressstatus" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    rid, uid, raddress, adressStatus
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from receiving
+    where rid = #{rid,jdbcType=INTEGER}
+  </select>
+  <select id="selectByuid" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from receiving
+    where uid = #{uid,jdbcType=INTEGER} AND adressStatus IN (0,1)
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from receiving
+    where rid = #{rid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.Receiving" useGeneratedKeys="true" keyProperty="rid">
+    insert into receiving (rid, uid, raddress, 
+      adressStatus)
+    values (DEFAULT, #{uid,jdbcType=INTEGER}, #{raddress,jdbcType=VARCHAR},
+      #{adressstatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.Receiving" >
+    insert into receiving
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rid != null" >
+        rid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="raddress != null" >
+        raddress,
+      </if>
+      <if test="adressstatus != null" >
+        adressStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rid != null" >
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="raddress != null" >
+        #{raddress,jdbcType=VARCHAR},
+      </if>
+      <if test="adressstatus != null" >
+        #{adressstatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.Receiving" >
+    update receiving
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="raddress != null" >
+        raddress = #{raddress,jdbcType=VARCHAR},
+      </if>
+      <if test="adressstatus != null" >
+        adressStatus = #{adressstatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where rid = #{rid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.Receiving" >
+    update receiving
+    set uid = #{uid,jdbcType=INTEGER},
+      raddress = #{raddress,jdbcType=VARCHAR},
+      adressStatus = #{adressstatus,jdbcType=INTEGER}
+    where rid = #{rid,jdbcType=INTEGER}
+  </update>
+</mapper>
